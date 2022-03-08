@@ -1,3 +1,41 @@
+var startPage = document.querySelector(".start-quiz")
+var quizQuestions = document.querySelector(".test-questions")
+var questionsTitle = document.querySelector(".questions");
+var answers = document.querySelector(".answer");
+var startButton = document.getElementById("initiate-quiz");
+var questionNmbr = 0;
+// Start Quiz
+var startQuiz = function () {
+    startPage.classList.add("hide");
+    quizQuestions.classList.remove("hide");
+    nextQuestion();
+};
+
+// show questions
+var questionsShow = function (question) {
+    questionsTitle.innerHTML = "<h1>" + question.question + "</h1>";
+    var hlEL = document.createElement("ul");
+    for (var i = 0; i < question.options.length; i++) {
+        var liEl = document.createElement("li");
+        liEl.textContent = i + 1 + ". " + question.options[i];
+        liEl.setAttribute("class", "answers");
+        liEl.setAttribute("value", question.options[i]);
+        liEl.addEventListener("click", function (e) { 
+            selectedAnswer(e, question.answer);
+        });
+        hlEL.appendChild(liEl);
+        answers.appendChild(hlEL);
+    }
+};
+
+// show next question
+
+var nextQuestion = function () {
+    resetEl();
+    showQuestion(questions[questionNmbr]);
+    questionNmbr++;
+};
+
 // Questions Array
 const questions = [
     {
@@ -26,3 +64,7 @@ const questions = [
         options: ["return()", "getAttribute", "parseInt()", "test()"],
     },
 ];
+
+//Start button
+startPage.addEventListener("click", startQuiz);
+console.log(startPage);
